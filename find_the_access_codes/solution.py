@@ -3,7 +3,6 @@ def answer(l):
     inverse_l = l[::-1]
 
     result = []
-    new_result = []
 
     for item in l:
         triples = []
@@ -14,34 +13,25 @@ def answer(l):
             dividend = l_queue.pop()
             if dividend % item == 0:
                 triples.append(dividend)
-                if triples not in result and len(triples) == 2:
-                    result.append(triples)
-                    triples = [item]
+                if len(triples) == 2:
+                    tmp_inverse_l = list(inverse_l)
+                    for a in tmp_inverse_l:
+                        if a % triples[-1] == 0 and a not in triples and triples[0] != triples[1]:
+                            tmp_triples = list(triples)
+                            tmp_triples.append(a)
+                            if tmp_triples not in result:
+                                result.append(tmp_triples)
+                        elif triples[0] == triples[1]:
+                            if l.count(a) == 3 and a == triples[1]:
+                                tmp_triples = list(triples)
+                                tmp_triples.append(a)
+                                if tmp_triples not in result:
+                                    result.append(tmp_triples)
+                triples = [item]
 
-    for item in inverse_l:
-        triples = [a for a in result]
-        l_queue = [a for a in l]
-        while l_queue:
-            dividend = l_queue.pop()
-            if dividend % item == 0:
-                for a in triples:
-                    if dividend % a[-1] == 0 and len(a) < 3 and dividend not in a and a[0] != a[1]:
-                        tmp_a = list(a)
-                        tmp_var = list(a)
-                        tmp_var.append(dividend)
-                        if tmp_var not in triples:
-                            triples.append(tmp_a)
-                            a.append(dividend)
-                            new_result.append(a)
-                    elif dividend in a and a[0] == a[1] and len(a) < 3:
-                        if l.count(dividend) == 3:
-                            a.append(dividend)
-                            new_result.append(a)
-                result = triples
-
-    # print new_result
-    return len(new_result)
+    # print result
+    return len(result)
 
 
-answer([1, 2, 3, 4, 5, 6])
-answer([1, 1, 1])
+print answer([1, 2, 3, 4, 5, 6, 7, 8, 2, 3, 4, 5, 6, 7, 8, 2, 3, 4, 5, 6, 7, 8, 2, 3, 4, 5, 6, 7, 8])
+print answer([1, 1, 1, 2, 3, 4, 6])
