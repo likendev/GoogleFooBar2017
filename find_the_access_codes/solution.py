@@ -22,16 +22,16 @@ def answer(l):
                             if tmp_triples not in result:
                                 result.append(tmp_triples)
                         elif triples[0] == triples[1]:
-                            if l.count(a) == 3 and a == triples[1]:
+                            if l.count(a) >= 3 and a == triples[1]:
                                 tmp_triples = list(triples)
                                 tmp_triples.append(a)
                                 if tmp_triples not in result:
                                     result.append(tmp_triples)
                 triples = [item]
 
-    # print result
+    print result
     return len(result)
 
 
 print answer([1, 2, 3, 4, 5, 6, 7, 8, 2, 3, 4, 5, 6, 7, 8, 2, 3, 4, 5, 6, 7, 8, 2, 3, 4, 5, 6, 7, 8])
-print answer([1, 1, 1, 2, 3, 4, 6])
+print answer([1, 1, 1])
